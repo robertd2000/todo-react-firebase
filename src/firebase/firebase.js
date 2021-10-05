@@ -1,12 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 // import firebase from 'firebase'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
-// import { getFirestore } from 'firebase/firestore/lite'
+import { getAuth } from 'firebase/auth'
+
 import { getFirestore } from 'firebase/firestore'
 
-// import 'firebase/firestore'
-// import 'firebase/auth'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,20 +23,3 @@ const auth = getAuth()
 const firestore = getFirestore()
 
 export { auth, app, firestore }
-// class Firebase {
-//   constructor() {
-//     this.auth = getAuth()
-//   }
-
-//   doCreateUserWithEmailAndPassword = (auth, email, password) => {
-//     createUserWithEmailAndPassword(auth, email, password)
-//   }
-
-//   doSignInWithEmailAndPassword = (email, password) => {
-//     this.auth.signInWithEmailAndPassword(email, password)
-//   }
-
-//   doSignOut = () => this.auth.signOut()
-// }
-
-// export default Firebase

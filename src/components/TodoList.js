@@ -1,13 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { collection, query, doc, getDocs, addDoc } from 'firebase/firestore'
+import {
+  collection,
+  query,
+  doc,
+  getDocs,
+  addDoc,
+  Timestamp,
+  updateDoc,
+  deleteDoc,
+} from 'firebase/firestore'
 import { Container } from '@mui/material'
-import { FirebaseContext, firestore } from '../firebase'
+import { FirebaseContext } from '../firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 import TodoItem from './TodoItem'
 import { Grid, List } from '@material-ui/core'
 import Input from './Input'
-import { Box } from '@mui/system'
 import Loader from './Loader'
 
 const TodoList = () => {
@@ -34,12 +42,16 @@ const TodoList = () => {
     const querySnapshot = await getDocs(q)
     let newList = []
     querySnapshot.forEach((doc) => {
-      newList.push(doc.data())
+      newList = [
+        ...newList,
+        {
+          ...doc.data(),
+          uid: doc.id,
+        },
+      ]
     })
     return newList
   }
-
-  console.log(list)
 
   const send = async (title, text, user) => {
     const data = {
@@ -48,14 +60,40 @@ const TodoList = () => {
       author: user.email,
       authoeId: user.uid,
       id: user.uid + Math.random(),
-      createdAt: new Date().toLocaleString(),
+      createdAt: Timestamp.now().toDate().toLocaleString(),
       done: false,
     }
-    console.log(data)
     await addDoc(collection(todosRef, user.email), data)
     setList(() => {
       return [...list, data]
     })
+  }
+
+  const deleteTodo = async (postId) => {
+    console.log(postId)
+    await deleteDoc(doc(todosRef, user.email, postId))
+    const newList = list.filter((item) => item.uid !== postId)
+    setList(newList)
+  }
+
+  const updateTodo = async (title, text, postId) => {
+    await updateDoc(doc(todosRef, user.email, postId), {
+      title: title.value,
+      text: text.value,
+    })
+
+    let current = list.filter((item) => item.uid === postId)
+    const listPrev = list.filter((item) => item.uid !== postId)
+    current = current[0]
+    const newList = [
+      ...listPrev,
+      {
+        ...current,
+        title: title.value,
+        text: text.value,
+      },
+    ]
+    setList(newList)
   }
 
   if (loading) {
@@ -74,11 +112,15 @@ const TodoList = () => {
               return (
                 <TodoItem
                   key={item.id}
+                  id={item.uid}
                   title={item.title}
                   text={item.text}
                   author={item.author}
                   done={item.done}
                   createdAt={item.createdAt}
+                  deletePost={deleteTodo}
+                  send={updateTodo}
+                  user={user}
                 />
               )
             })}

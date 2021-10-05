@@ -1,12 +1,18 @@
-import Button from '@mui/material/Button'
+import { Button } from '@material-ui/core'
 import { TextField } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 import { useInput } from '../hooks/useInput'
 
-const InputItem = ({ send, user }) => {
-  const title = useInput('')
-  const text = useInput('')
+const InputItem = ({
+  send,
+  user,
+  title: inputTitle,
+  text: inputText,
+  handleClose,
+}) => {
+  const title = useInput(inputTitle ?? '')
+  const text = useInput(inputText ?? '')
 
   return (
     <Box
@@ -36,8 +42,13 @@ const InputItem = ({ send, user }) => {
       </div>
       <Button
         style={{ margin: 10 }}
-        variant="outlined"
-        onClick={() => send(title, text, user)}
+        variant={'contained'}
+        onClick={() => {
+          send(title, text, user)
+          if (handleClose) {
+            handleClose()
+          }
+        }}
       >
         Создать
       </Button>

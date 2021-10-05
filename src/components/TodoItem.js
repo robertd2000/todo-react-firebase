@@ -1,8 +1,9 @@
-import { ListItem, ListItemText, Paper } from '@mui/material'
+import { ListItemText, Paper } from '@mui/material'
 import React from 'react'
 import { Divider, Grid } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
-import { Delete, Build } from '@material-ui/icons'
+import { Delete } from '@material-ui/icons'
+import Modal from './Modal'
 
 const styles = {
   Icon: {
@@ -14,11 +15,21 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     marginTop: 10,
-    width: 500,
+    width: 600,
   },
 }
 
-const TodoItem = ({ title, text, author, done, createdAt }) => {
+const TodoItem = ({
+  title,
+  text,
+  author,
+  done,
+  createdAt,
+  deletePost,
+  id,
+  send,
+  user,
+}) => {
   return (
     <>
       <Grid
@@ -31,19 +42,23 @@ const TodoItem = ({ title, text, author, done, createdAt }) => {
       >
         <Paper elevation={2} style={styles.Paper}>
           <Grid container spacing={2}>
-            <Grid item xs={5}>
+            <Grid item xs={4}>
               <ListItemText primary={author} secondary={createdAt} />
             </Grid>
             <Grid item xs={7}>
               <ListItemText
                 primary={title}
-                style={{ fontSize: '1.2rem  !important; ' }}
+                style={{ fontSize: '1.2rem  !important ' }}
               />
               <ListItemText primary={text} />
             </Grid>
           </Grid>
-
-          <IconButton color="secondary" aria-label="Delete">
+          <Modal id={id} send={send} title={title} text={text} />
+          <IconButton
+            onClick={() => deletePost(id)}
+            color="secondary"
+            aria-label="Delete"
+          >
             <Delete fontSize="small" />
           </IconButton>
         </Paper>
