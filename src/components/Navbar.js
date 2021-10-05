@@ -9,7 +9,6 @@ const Navbar = () => {
   const { auth } = useContext(FirebaseContext)
   const [user] = useAuthState(auth)
 
-  console.log(user)
   return (
     <AppBar color={'primary'} position={'static'}>
       <Toolbar variant={'dense'}>

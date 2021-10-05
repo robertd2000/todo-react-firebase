@@ -2,7 +2,8 @@
 import { initializeApp } from 'firebase/app'
 // import firebase from 'firebase'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore/lite'
+// import { getFirestore } from 'firebase/firestore/lite'
+import { getFirestore } from 'firebase/firestore'
 
 // import 'firebase/firestore'
 // import 'firebase/auth'
@@ -20,7 +21,6 @@ const config = {
 }
 // Initialize Firebase
 const app = initializeApp(config)
-
 const auth = getAuth()
 const firestore = getFirestore()
 

@@ -31,7 +31,7 @@ const Login = (props) => {
         setData({ ...data, error })
       })
   }
-  console.log(data)
+
   return (
     <Container>
       <Grid
