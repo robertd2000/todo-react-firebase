@@ -1,7 +1,6 @@
 import { Button, Container, Grid, Input } from '@mui/material'
 import { Box } from '@mui/system'
-import React, { useContext, useState } from 'react'
-import { FirebaseContext } from '../firebase'
+import React, { useState } from 'react'
 // import firebase from 'firebase'
 import { getAuth, createUserWithEmailAndPassword } from '@firebase/auth'
 import { withRouter } from 'react-router'

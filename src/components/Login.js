@@ -5,6 +5,11 @@ import { getAuth, signInWithEmailAndPassword } from '@firebase/auth'
 import { NOTES_ROUTE } from '../utils/constants'
 import { withRouter } from 'react-router'
 
+const style = {
+  width: 400,
+  margin: 20,
+}
+
 const Login = (props) => {
   const INITIAL = {
     email: '',
@@ -40,14 +45,40 @@ const Login = (props) => {
         alignItems={'center'}
         justifyContent={'center'}
       >
-        <Box p={5}>
-          <Input name={'email'} onChange={onUpdate} value={data.email} />
-        </Box>
-        <Box p={5}>
-          <Input name={'password'} onChange={onUpdate} value={data.password} />
-        </Box>
-        <Box p={5}>
-          <Button onClick={submit}>Войти</Button>
+        <Box
+          component="form"
+          justifyContent={'center'}
+          sx={{
+            '& .MuiTextField-root': { m: 1, width: '25ch' },
+          }}
+        >
+          <div>
+            <Input
+              name={'email'}
+              onChange={onUpdate}
+              value={data.email}
+              placeholder={'email'}
+              style={style}
+            />
+          </div>
+          <div>
+            <Input
+              name={'password'}
+              onChange={onUpdate}
+              value={data.password}
+              placeholder={'пароль'}
+              style={style}
+            />
+          </div>
+          <div>
+            <Button
+              style={{ margin: 20 }}
+              variant={'contained'}
+              onClick={submit}
+            >
+              Войти
+            </Button>
+          </div>
         </Box>
       </Grid>
       {data.error && <p>{data.error.message}</p>}

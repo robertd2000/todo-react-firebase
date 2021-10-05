@@ -14,6 +14,8 @@ const InputItem = ({
   const title = useInput(inputTitle ?? '')
   const text = useInput(inputText ?? '')
 
+  const isInvalid = title.value === '' || text.value === ''
+
   return (
     <Box
       component="form"
@@ -25,24 +27,29 @@ const InputItem = ({
       <div>
         <TextField
           id="standard-basic"
+          error={isInvalid}
           label="Заголовок"
           variant="standard"
           {...title}
           placeholder="Заголовок"
+          helperText="Некорректный ввод"
         />
       </div>
       <div>
         <TextField
           id="standard-basic"
+          error={isInvalid}
           label="Контент"
           variant="standard"
           {...text}
           placeholder="Контент"
+          helperText="Некорректный ввод"
         />
       </div>
       <Button
         style={{ margin: 10 }}
         variant={'contained'}
+        disabled={isInvalid}
         onClick={() => {
           send(title, text, user)
           if (handleClose) {

@@ -2,6 +2,7 @@ import { ListItemText, Paper } from '@mui/material'
 import React from 'react'
 import { Divider, Grid } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
+import Checkbox from '@mui/material/Checkbox'
 import { Delete } from '@material-ui/icons'
 import Modal from './Modal'
 
@@ -15,9 +16,14 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     marginTop: 10,
-    width: 600,
+    width: 700,
+  },
+  Checbox: {
+    marginRight: 10,
   },
 }
+
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 
 const TodoItem = ({
   title,
@@ -26,6 +32,7 @@ const TodoItem = ({
   done,
   createdAt,
   deletePost,
+  doneTodoHandler,
   id,
   send,
   user,
@@ -41,6 +48,13 @@ const TodoItem = ({
         }}
       >
         <Paper elevation={2} style={styles.Paper}>
+          <Checkbox
+            {...label}
+            defaultChecked={done}
+            style={styles.Checbox}
+            onChange={() => doneTodoHandler(id)}
+          />
+
           <Grid container spacing={2}>
             <Grid item xs={4}>
               <ListItemText primary={author} secondary={createdAt} />
