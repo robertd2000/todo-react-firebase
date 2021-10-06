@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Checkbox from '@mui/material/Checkbox'
 import { Delete } from '@material-ui/icons'
 import Modal from './Modal'
+import logo from '../logo.svg'
 
 const styles = {
   Icon: {
@@ -54,6 +55,12 @@ const TodoItem = ({
             style={styles.Checbox}
             onChange={() => doneTodoHandler(id)}
           />
+
+          {/* {user.photoURL ? (
+            <img src={user.photoURL.split(':').slice(1).join(':')} />
+          ) : (
+            <img src={logo} />
+          )} */}
 
           <Grid container spacing={2}>
             <Grid item xs={4}>

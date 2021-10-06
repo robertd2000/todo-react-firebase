@@ -28,6 +28,19 @@
   color: #61dafb;
 }
 
+.profileInput {
+  margin-top: 20px;
+}
+
+.profileItemCard {
+  margin-left: 70px;
+}
+
+.profilePhoto {
+  width: 250px;
+  border: #61dafb 2px solid;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

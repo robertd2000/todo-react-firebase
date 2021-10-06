@@ -37,7 +37,7 @@ const TodoList = () => {
     const data = {
       title: title.value,
       text: text.value,
-      author: user.email,
+      author: user.displayName,
       authoeId: user.uid,
       id: user.uid + Math.random(),
       createdAt: Timestamp.now().toDate().toLocaleString(),
