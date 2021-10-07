@@ -29,6 +29,7 @@ const Profile = () => {
   const [photoState, setPhotoState] = useState(photoURL)
   const [loading, setLoading] = useState(false)
 
+  console.log(photoState)
   const newName = useInput(displayName)
 
   const onUpdateProfile = () => {
@@ -67,14 +68,44 @@ const Profile = () => {
     })
   }
 
+  function imgToBase64(img) {
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    canvas.width = img.width
+    canvas.height = img.height
+
+    // I think this won't work inside the function from the console
+    img.crossOrigin = 'anonymous'
+
+    ctx.drawImage(img, 0, 0)
+
+    return canvas.toDataURL()
+  }
+
   const onImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       let img = e.target.files[0]
+      // var reader = new FileReader()
+      // console.log('next')
+
+      // let base64String = ''
+      // reader.onload = function () {
+      //   base64String = reader.result.replace('data:', '').replace(/^.+,/, '')
+
+      //   // alert(imageBase64Stringsep);
+      //   console.log(base64String)
+      // }
+      // reader.readAsDataURL(img)
+
+      const imgFile = new Image()
+      img.src = img
+      console.log(imgFile)
       //   const formData = new FormData()
       //   formData.append('image', img, img.name)
       //   let reader = new FileReader()
       //   reader.readAsText(img)
-      setPhotoState(URL.createObjectURL(img))
+      // setPhotoState(URL.createObjectURL(img))
+      setPhotoState(imgFile)
     }
   }
 

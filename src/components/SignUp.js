@@ -2,7 +2,11 @@ import { Button, Container, Grid, Input } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
 // import firebase from 'firebase'
-import { getAuth, createUserWithEmailAndPassword } from '@firebase/auth'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from '@firebase/auth'
 import { withRouter } from 'react-router'
 import { NOTES_ROUTE } from '../utils/constants'
 
@@ -22,6 +26,10 @@ const SignIn = (props) => {
     e.preventDefault()
     createUserWithEmailAndPassword(auth, data.email, data.passwordOne)
       .then(() => {
+        updateProfile(auth.currentUser, {
+          displayName: data.username,
+          // photoURL: photoState,
+        })
         setData(INITIAL)
         props.history.push(NOTES_ROUTE)
       })

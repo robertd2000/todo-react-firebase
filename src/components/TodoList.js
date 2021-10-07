@@ -24,6 +24,7 @@ const TodoList = () => {
   const [loading, setLoading] = useState(false)
 
   const todosRef = doc(firestore, 'todos', user.email)
+  console.log(list)
 
   useEffect(async () => {
     setLoading(true)
@@ -34,23 +35,26 @@ const TodoList = () => {
   }, [])
 
   const send = async (title, text, user) => {
+    let id = user.uid + Math.random()
     const data = {
       title: title.value,
       text: text.value,
       author: user.displayName,
       authoeId: user.uid,
-      id: user.uid + Math.random(),
+      id,
       createdAt: Timestamp.now().toDate().toLocaleString(),
       done: false,
     }
 
-    const newList = await sendData(data, user, todosRef, list)
-    setList(newList)
+    await sendData(data, user, todosRef, list)
+    const initializedList = await initialize(user)
+    setList(initializedList)
   }
 
   const deleteTodo = async (postId) => {
-    const newList = await deleteData(postId, user, todosRef, list)
-    setList(newList)
+    await deleteData(postId, user, todosRef, list)
+    const initializedList = await initialize(user)
+    setList(initializedList)
   }
 
   const updateTodo = async (title, text, postId) => {

@@ -58,6 +58,7 @@ const deleteData = async (postId, user, todosRef, list) => {
 }
 
 const updateData = async (postId, user, todosRef, title, text, list) => {
+  console.log(postId, user, todosRef, title, text, list)
   await updateDoc(doc(todosRef, user.email, postId), {
     title: title.value,
     text: text.value,
